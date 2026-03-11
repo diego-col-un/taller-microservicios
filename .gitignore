@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment variables (NUNCA subir al repo)
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
