@@ -13,3 +13,11 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Firebase credentials
+microservicio-productos/firebase-key.json
+microservicio-productos/.env
+
+# Laravel
+api-gateway/vendor/
+api-gateway/.env
