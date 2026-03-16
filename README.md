@@ -166,3 +166,32 @@ POST http://localhost:8000/api/ventas/
 Authorization: Bearer TU_TOKEN
 Body: { "usuario_id": "1", "producto_id": "ID_FIREBASE", "cantidad": 2, "total": 70000 }
 ```
+## Diagrama del sistema
+```mermaid
+graph TD
+    Cliente(["👤 Cliente\n(Thunder Client)"])
+
+    subgraph Gateway["API Gateway - Laravel :8000"]
+        Auth["🔐 JWT Auth\n/api/auth"]
+        Proxy["🔀 Proxy\n/api/productos\n/api/ventas"]
+    end
+
+    subgraph Flask["Microservicio Productos - Flask :5000"]
+        Productos["📦 Productos\nCRUD + Stock"]
+    end
+
+    subgraph Express["Microservicio Ventas - Express :3000"]
+        Ventas["🧾 Ventas\nRegistro + Consultas"]
+    end
+
+    Firebase[("🔥 Firebase\nRealtime Database")]
+    MongoDB[("🍃 MongoDB\nlocalhost:27017")]
+
+    Cliente -->|"POST /api/auth/login"| Auth
+    Auth -->|"JWT Token"| Cliente
+    Cliente -->|"Bearer Token"| Proxy
+    Proxy -->|"HTTP"| Productos
+    Proxy -->|"HTTP"| Ventas
+    Productos -->|"Read/Write"| Firebase
+    Ventas -->|"Read/Write"| MongoDB
+```
