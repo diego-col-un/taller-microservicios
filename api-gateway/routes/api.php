@@ -28,4 +28,7 @@ Route::middleware('auth:api')->group(function () {
     // Microservicio Ventas (Express)
     Route::any('/ventas/{path?}', [GatewayController::class, 'ventas'])
         ->where('path', '.*');
+    
+    // Flujo completo de venta
+    Route::post('/registro-venta', [GatewayController::class, 'registrarVenta']);
 });
